@@ -1,0 +1,28 @@
+[project]
+name = "nibarchive"
+version = "1.0.0"
+description="Parser implementation of NeXTSTEP Interface Builder (NIB) files"
+authors = [
+  { name="MatrixEditor", email="not@supported.com" },
+]
+readme = "README.md"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MatrixEditor/nibarchive"
+"API-Docs" = "https://matrixeditor.github.io/nibarchive/"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nibarchive*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
