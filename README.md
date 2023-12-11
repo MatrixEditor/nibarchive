@@ -3,7 +3,7 @@
 [![python](https://img.shields.io/badge/python-3.9+-blue.svg?logo=python&labelColor=grey)](https://www.python.org/downloads/)
 ![Codestyle](https://img.shields.io:/static/v1?label=Codestyle&message=black&color=black)
 ![License](https://img.shields.io:/static/v1?label=License&message=GNU+GPLv3&color=blue)
-![PyPi](https://img.shields.io:/static/v1?label=PyPi&message=1.1.0&color=lightblue)
+[![PyPI](https://img.shields.io/pypi/v/nibarchive)](https://pypi.org/project/nibarchive/)
 [![Build and Deploy Sphinx Documentation](https://github.com/MatrixEditor/nibarchive/actions/workflows/sphinx.yml/badge.svg)](https://github.com/MatrixEditor/nibarchive/actions/workflows/sphinx.yml)
 
 
