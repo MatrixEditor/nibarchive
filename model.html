@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIB Object Model &mdash; NIBArchive Parser 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NIB Parser Model" href="parser.html" />
+    <link rel="prev" title="Welcome to NIBArchive Parser’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NIBArchive Parser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NIB Object Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBArchiveHeader"><code class="docutils literal notranslate"><span class="pre">NIBArchiveHeader</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.ClassName"><code class="docutils literal notranslate"><span class="pre">ClassName</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBKey"><code class="docutils literal notranslate"><span class="pre">NIBKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBValueType"><code class="docutils literal notranslate"><span class="pre">NIBValueType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nibarchive.NIBValueType.from_byte"><code class="docutils literal notranslate"><span class="pre">NIBValueType.from_byte()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBValue"><code class="docutils literal notranslate"><span class="pre">NIBValue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBObject"><code class="docutils literal notranslate"><span class="pre">NIBObject</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nibarchive.NIBArchive"><code class="docutils literal notranslate"><span class="pre">NIBArchive</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nibarchive.NIBArchive.get_class_name"><code class="docutils literal notranslate"><span class="pre">NIBArchive.get_class_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nibarchive.NIBArchive.get_object_items"><code class="docutils literal notranslate"><span class="pre">NIBArchive.get_object_items()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nibarchive.NIBArchive.get_object_values"><code class="docutils literal notranslate"><span class="pre">NIBArchive.get_object_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nibarchive.NIBArchive.get_value_key"><code class="docutils literal notranslate"><span class="pre">NIBArchive.get_value_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">NIB Parser Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#nibarchive.NIBFormatError"><code class="docutils literal notranslate"><span class="pre">NIBFormatError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#nibarchive.is_nib"><code class="docutils literal notranslate"><span class="pre">is_nib()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#nibarchive.varint"><code class="docutils literal notranslate"><span class="pre">varint()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#nibarchive.NIBArchiveParser"><code class="docutils literal notranslate"><span class="pre">NIBArchiveParser</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parser.html#nibarchive.NIBArchiveParser.parse"><code class="docutils literal notranslate"><span class="pre">NIBArchiveParser.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NIBArchive Parser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NIB Object Model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nib-object-model">
+<span id="model"></span><h1>NIB Object Model<a class="headerlink" href="#nib-object-model" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBArchiveHeader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBArchiveHeader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unknown_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unknown_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_class_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBArchiveHeader" title="Link to this definition">¶</a></dt>
+<dd><p>Represents the header of a NIB archive.</p>
+<p>The header contains information about the archive, such as the number of objects,
+keys, values, and class names present in the archive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unknown_1</strong> (<em>int</em>) – Unknown value 1.</p></li>
+<li><p><strong>unknown_2</strong> (<em>int</em>) – Unknown value 2.</p></li>
+<li><p><strong>object_count</strong> (<em>int</em>) – Number of objects in the archive.</p></li>
+<li><p><strong>offset_objects</strong> (<em>int</em>) – Offset to the objects in the archive.</p></li>
+<li><p><strong>key_count</strong> (<em>int</em>) – Number of keys in the archive.</p></li>
+<li><p><strong>offset_keys</strong> (<em>int</em>) – Offset to the keys in the archive.</p></li>
+<li><p><strong>value_count</strong> (<em>int</em>) – Number of values in the archive.</p></li>
+<li><p><strong>offset_values</strong> (<em>int</em>) – Offset to the values in the archive.</p></li>
+<li><p><strong>class_name_count</strong> (<em>int</em>) – Number of class names in the archive.</p></li>
+<li><p><strong>offset_class_names</strong> (<em>int</em>) – Offset to the class names in the archive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.ClassName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">ClassName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extras_count:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extras:</span> <span class="pre">list[int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.ClassName" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a class name in a NIB archive.</p>
+<p>Class names are used to identify the class type of objects in the archive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length</strong> (<em>int</em>) – Length of the class name (varint).</p></li>
+<li><p><strong>extras_count</strong> (<em>int</em>) – Number of extra integers following the name (varint).</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the class.</p></li>
+<li><p><strong>extras</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – Extra integers associated with the class (default: empty list).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBKey">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBKey" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a key in a NIB archive.</p>
+<p>Keys are used to identify the values associated with objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length</strong> (<em>int</em>) – Length of the key (varint).</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the key.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBValueType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBValueType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBValueType" title="Link to this definition">¶</a></dt>
+<dd><p>Enum representing the possible value types in a NIB archive.</p>
+<p>The value types define the type of data stored in a <a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBValue</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>INT8</strong> – 8-bit integer.</p></li>
+<li><p><strong>INT16</strong> – 16-bit integer.</p></li>
+<li><p><strong>INT32</strong> – 32-bit integer.</p></li>
+<li><p><strong>INT64</strong> – 64-bit integer.</p></li>
+<li><p><strong>BOOL_TRUE</strong> – Boolean value true.</p></li>
+<li><p><strong>BOOL_FALSE</strong> – Boolean value false.</p></li>
+<li><p><strong>FLOAT</strong> – Single-precision floating-point number.</p></li>
+<li><p><strong>DOUBLE</strong> – Double-precision floating-point number.</p></li>
+<li><p><strong>DATA</strong> – Data object.</p></li>
+<li><p><strong>NIL</strong> – Nil value.</p></li>
+<li><p><strong>OBJECT_REF</strong> – Object reference.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nibarchive.NIBValueType.from_byte">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_byte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nibarchive.NIBValueType" title="nibarchive.model.NIBValueType"><span class="pre">NIBValueType</span></a></span></span><a class="headerlink" href="#nibarchive.NIBValueType.from_byte" title="Link to this definition">¶</a></dt>
+<dd><p>Get the NIBValueType enum value from a byte representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em>) – Byte value representing the NIBValueType.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Corresponding NIBValueType enum value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nibarchive.NIBValueType" title="nibarchive.NIBValueType">NIBValueType</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the byte value does not match any NIBValueType.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBValue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nibarchive.NIBValueType" title="nibarchive.model.NIBValueType"><span class="pre">NIBValueType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBValue" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a value in a NIB archive.</p>
+<p>Values are associated with keys and hold data for objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_index</strong> (<em>int</em>) – Index of the associated <a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.NIBKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBKey</span></code></a> (varint).</p></li>
+<li><p><strong>type</strong> (<em>:class`NIBValueType`</em>) – Type of the value.</p></li>
+<li><p><strong>data</strong> (<em>Any</em>) – Data associated with the value (default: None).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_name_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBObject" title="Link to this definition">¶</a></dt>
+<dd><p>Represents an object in a NIB archive.</p>
+<p>Objects are instances of classes defined in the archive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>class_name_index</strong> (<em>int</em>) – Index of the associated <a class="reference internal" href="#nibarchive.ClassName" title="nibarchive.ClassName"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassName</span></code></a> (varint).</p></li>
+<li><p><strong>values_index</strong> (<em>int</em>) – Index of the first associated <a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBValue</span></code></a> (varint).</p></li>
+<li><p><strong>value_count</strong> (<em>int</em>) – Number of associated values (varint).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nibarchive.NIBArchive">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nibarchive.</span></span><span class="sig-name descname"><span class="pre">NIBArchive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header:</span> <span class="pre">~nibarchive.model.NIBArchiveHeader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objects:</span> <span class="pre">list[~nibarchive.model.NIBObject]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys:</span> <span class="pre">list[~nibarchive.model.NIBKey]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">list[~nibarchive.model.NIBValue]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names:</span> <span class="pre">list[~nibarchive.model.ClassName]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nibarchive.NIBArchive" title="Link to this definition">¶</a></dt>
+<dd><p>A simple NIB archive dataclass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<a class="reference internal" href="#nibarchive.NIBArchiveHeader" title="nibarchive.NIBArchiveHeader"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBArchiveHeader</span></code></a>) – Header of the NIB archive.</p></li>
+<li><p><strong>objects</strong> (list[<a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.NIBObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBObject</span></code></a>]) – List of NIBObject instances (default: empty list).</p></li>
+<li><p><strong>keys</strong> (list[<a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.NIBKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBKey</span></code></a>]) – List of NIBKey instances (default: empty list).</p></li>
+<li><p><strong>values</strong> (list[<a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">NIBValue</span></code></a>]) – List of NIBValue instances (default: empty list).</p></li>
+<li><p><strong>class_names</strong> (list[<a class="reference internal" href="#nibarchive.ClassName" title="nibarchive.ClassName"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassName</span></code></a>]) – List of ClassName instances (default: empty list).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nibarchive.NIBArchive.get_class_name">
+<span class="sig-name descname"><span class="pre">get_class_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.model.NIBObject"><span class="pre">NIBObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nibarchive.ClassName" title="nibarchive.model.ClassName"><span class="pre">ClassName</span></a></span></span><a class="headerlink" href="#nibarchive.NIBArchive.get_class_name" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ClassName associated with a given NIBObject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.NIBObject"><em>NIBObject</em></a>) – The NIBObject.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The associated ClassName.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nibarchive.ClassName" title="nibarchive.ClassName">ClassName</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nibarchive.NIBArchive.get_object_items">
+<span class="sig-name descname"><span class="pre">get_object_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.model.NIBObject"><span class="pre">NIBObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.model.NIBKey"><span class="pre">NIBKey</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.model.NIBValue"><span class="pre">NIBValue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nibarchive.NIBArchive.get_object_items" title="Link to this definition">¶</a></dt>
+<dd><p>Get a dictionary of NIBKey-NIBValue pairs associated with a given NIBObject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.NIBObject"><em>NIBObject</em></a>) – The NIBObject.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary of NIBKey-NIBValue pairs associated with the object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.NIBKey">NIBKey</a>, <a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue">NIBValue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nibarchive.NIBArchive.get_object_values">
+<span class="sig-name descname"><span class="pre">get_object_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.model.NIBObject"><span class="pre">NIBObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.model.NIBValue"><span class="pre">NIBValue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nibarchive.NIBArchive.get_object_values" title="Link to this definition">¶</a></dt>
+<dd><p>Get the list of NIBValues associated with a given NIBObject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="#nibarchive.NIBObject" title="nibarchive.NIBObject"><em>NIBObject</em></a>) – The NIBObject.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of NIBValues associated with the object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue">NIBValue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nibarchive.NIBArchive.get_value_key">
+<span class="sig-name descname"><span class="pre">get_value_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.model.NIBValue"><span class="pre">NIBValue</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.model.NIBKey"><span class="pre">NIBKey</span></a></span></span><a class="headerlink" href="#nibarchive.NIBArchive.get_value_key" title="Link to this definition">¶</a></dt>
+<dd><p>Get the NIBKey associated with a given NIBValue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference internal" href="#nibarchive.NIBValue" title="nibarchive.NIBValue"><em>NIBValue</em></a>) – The NIBValue.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The associated NIBKey.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nibarchive.NIBKey" title="nibarchive.NIBKey">NIBKey</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to NIBArchive Parser’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parser.html" class="btn btn-neutral float-right" title="NIB Parser Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, MatrixEditor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
